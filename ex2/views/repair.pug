@@ -1,0 +1,32 @@
+extends layout
+
+block content
+  h1 Detalhes da Reparação: #{repair._id}
+  
+  div(style="background-color: white; padding: 20px; border-radius: 8px; border: 1px solid #ddd;")
+    h3 Dados do Cliente
+    p #[strong Nome:] #{repair.nome}
+    p #[strong NIF:] #{repair.nif}
+    p #[strong Data da Reparação:] #{repair.data}
+    
+    h3 Viatura
+    p #[strong Marca:] 
+      a(href='/' + repair.viatura.marca) #{repair.viatura.marca}
+    p #[strong Modelo:] #{repair.viatura.modelo}
+    p #[strong Matrícula:] #{repair.viatura.matricula}
+    
+    h3 Intervenções (#{repair.nr_intervencoes})
+    table
+      thead
+        tr
+          th Código
+          th Nome
+          th Descrição
+      tbody
+        each int in repair.intervencoes
+          tr
+            td #{int.codigo}
+            td #{int.nome}
+            td #{int.descricao}
+            
+  a.btn(href='/') &larr; Voltar à Página Principal

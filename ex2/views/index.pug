@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  header
+    h1 Oficina Central - Lista de Reparações
+    p Bem-vindo ao sistema de gestão da oficina. Total de registos: #{repairs.length}
+
+  table
+    thead
+      tr
+        th ID
+        th Data
+        th Nome do Cliente
+        th Matrícula
+        th Marca
+        th Nº Intervenções
+    tbody
+      each r in repairs
+        tr
+          td
+            a(href='/' + r._id) #{r._id}  
+          td #{r.data}
+          td #{r.nome}
+          td #{r.viatura.matricula}
+          td
+            a(href='/' + r.viatura.marca) #{r.viatura.marca}
+          td #{r.nr_intervencoes}

@@ -1,0 +1,23 @@
+# Project Record - EW2026 Aferição
+
+## Persistência de Dados e Setup (MongoDB)
+Para a persistência de dados, utilizou-se o MongoDB. O dataset fornecido em JSON foi primeiramente limpo, removendo a raiz "reparacoes" de forma a obter um array direto de objetos JSON, permitindo a correta importação.
+Para importar os dados para a base de dados, após ter o contentor do MongoDB a correr, executou-se o seguinte comando na raiz do projeto (onde se encontra o dataset modificado):
+`mongoimport -d autoRepair -c repairs --type json --file dataset_reparacoes.json --jsonArray`
+
+## Respostas Textuais (Warm-up)
+As respostas aos pedidos de MongoDB (queries) encontram-se no ficheiro queries.txt incluído neste repositório.
+
+## Instruções de Execução
+A aplicação foi desenvolvida para ser orquestrada com o Docker Compose. Para colocar tudo em funcionamento, siga os seguintes passos:
+
+1. Na raiz do projeto, abrir o terminal e executar o comando para construir e levantar as imagens:
+   `docker-compose up --build -d`
+
+2. Com os contentores a correr, é necessário popular a base de dados. Pode utilizar as ferramentas do MongoDB para importar o ficheiro `dataset_reparacoes.json` que se encontra na raiz do projeto, através do comando de mongoimport referido na secção de Setup (caso tenha o mongo-tools local). Em alternativa, pode copiar o ficheiro para dentro do contentor e importar:
+   `docker cp dataset_reparacoes.json ew2026-afericao_mongodb_1:/tmp/dataset_reparacoes.json`
+   `docker exec ew2026-afericao_mongodb_1 mongoimport -d autoRepair -c repairs --type json --file /tmp/dataset_reparacoes.json --jsonArray`
+
+3. Aceder aos serviços:
+   - API de Dados: http://localhost:16025
+   - Interface Web: http://localhost:16026

@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+
+  api:
+    build: ./ex1
+    ports:
+      - "16025:16025"
+    depends_on:
+      - mongodb
+
+  interface:
+    build: ./ex2
+    ports:
+      - "16026:16026"
+    depends_on:
+      - api
