@@ -30,10 +30,10 @@ router.get('/', (req, res) => {
         .catch(erro => res.status(500).json(erro));
 });
 
-// GET /repairs
-router.get('/', (req, res) => {
-    Repair.list(req.query.ano, req.query.marca) // <- Tem de estar assim!
-        .then(dados => res.json(dados))
+// POST /repairs (ADICIONADO PARA CUMPRIR O ENUNCIADO)
+router.post('/', (req, res) => {
+    Repair.insert(req.body) // Assumindo que o teu controller tem o método insert
+        .then(dados => res.status(201).json(dados))
         .catch(erro => res.status(500).json(erro));
 });
 
